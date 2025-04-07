@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .home-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+</style>
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary home-button">
+    <i class="bi bi-house-door"></i> Home
+</a>
+<h2>Upload Fingerprint</h2>
+
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<form action="{{ url_for('upload_fingerprint') }}" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="file" class="form-label">Upload Fingerprint Image</label>
+        <input type="file" class="form-control" name="file" accept="image/*" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Verify Fingerprint</button>
+</form>
+{% endblock %}

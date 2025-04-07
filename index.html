@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Welcome to the Fingerprint Authentication System</h2>
+<p>Please register or log in to continue.</p>
+<div class="mt-4">
+    <a href="{{ url_for('register') }}" class="btn btn-success">Register</a>
+    <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+</div>
+{% endblock %}

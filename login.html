@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .home-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+</style>
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary home-button">
+    <i class="bi bi-house-door"></i> Home
+</a>
+<div class="login-container">
+    <h2>Login</h2>
+
+    <!-- Display error message if login fails -->
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    {% if blocked %}
+    <div class="alert alert-warning">
+        Too many failed attempts. Please try again after some time.
+    </div>
+    {% else %}
+    <form action="{{ url_for('login') }}" method="POST">
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+
+        <div class="input-group">
+            <label for="aadhar">Aadhar Number</label>
+            <input type="password" name="aadhar" class="form-control" pattern="\d{12}" title="Enter a valid 12-digit Aadhar number" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    {% endif %}
+</div>
+
+<style>
+    .login-container {
+        width: 320px;
+        margin: auto;
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+        background: #f0f8ff;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .input-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+    .input-group label {
+        display: block;
+        font-weight: bold;
+    }
+    .input-group input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    .btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: #007bff;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .btn:hover {
+        background: #0056b3;
+    }
+    .alert {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+</style>
+{% endblock %}

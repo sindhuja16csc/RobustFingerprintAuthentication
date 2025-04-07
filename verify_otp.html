@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .home-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+</style>
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary home-button">
+    <i class="bi bi-house-door"></i> Home
+</a>
+<h2>Verify OTP</h2>
+<p>OTP has been sent to {{ phone }}</p>
+
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<form action="{{ url_for('verify_otp') }}" method="POST">
+    <input type="hidden" name="phone" value="{{ phone }}">
+    <input type="hidden" name="username" value="{{ username }}">
+    <input type="hidden" name="next_step" value="{{ next_step }}">
+    <label for="otp">Enter OTP</label>
+    <input type="text" class="form-control" name="otp" required>
+    
+    <button type="submit" class="btn btn-primary mt-2">Verify OTP</button>
+</form>
+{% endblock %}

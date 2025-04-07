@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .home-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+</style>
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary home-button">
+    <i class="bi bi-house-door"></i> Home
+</a>
+
+<h2>Register</h2>
+
+<!-- Step 1: Registration Form -->
+{% if step == "upload" %}
+<form action="{{ url_for('register') }}" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="step" value="upload">
+    
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" name="username" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" name="phone" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="aadhar" class="form-label">Aadhar Number</label>
+        <input type="text" class="form-control" name="aadhar" pattern="\d{12}" title="Enter a valid 12-digit Aadhar number" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="file" class="form-label">Upload Fingerprint Image</label>
+        <input type="file" class="form-control" name="file" accept="image/*" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Register</button>
+</form>
+
+{% if error %}
+<div id="error-message" class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var usernameInput = document.querySelector('input[name="username"]');
+    var errorMessage = document.getElementById("error-message");
+
+    if (usernameInput && errorMessage) {
+        usernameInput.addEventListener("input", function () {
+            errorMessage.style.display = "none"; // Hide error message when typing
+        });
+    }
+});
+</script>
+
+<!-- Step 2: OTP Verification Form -->
+{% elif step == "verify_otp" %}
+<h3>OTP Verification</h3>
+<p>Enter the OTP sent to {{ phone }}</p>
+
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<form action="{{ url_for('register') }}" method="POST">
+    <input type="hidden" name="step" value="verify_otp">
+    <input type="hidden" name="phone" value="{{ phone }}">
+
+    <div class="mb-3">
+        <label for="otp" class="form-label">Enter OTP</label>
+        <input type="text" class="form-control" name="otp" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Verify OTP</button>
+</form> 
+
+<!-- Step 3: Registration Success -->
+{% elif step == "success" %}
+<h3>Registration Successful!</h3>
+<p>Your registration is complete. Click the button below to log in.</p>
+
+<a href="{{ url_for('login') }}" class="btn btn-primary">Go to Login</a>
+{% endif %}
+
+{% endblock %}
