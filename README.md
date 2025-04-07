@@ -1,6 +1,4 @@
 # RobustFingerprintAuthentication
-Fingerprint authentication system with real time security alerts 
-ABSTRACT 
 The project titled "Robust Fingerprint Authentication with Real-Time Security Alerts" focuses on enhancing the security of fingerprint-based authentication by 
 integrating it with Aadhaar for identity verification, augmented by real-time SMS notifications. The core objective is to implement a system where fingerprint 
 data is immediately deleted after verification to uphold user privacy and security. The backend is developed using Python with the Flask framework, ensuring a 
